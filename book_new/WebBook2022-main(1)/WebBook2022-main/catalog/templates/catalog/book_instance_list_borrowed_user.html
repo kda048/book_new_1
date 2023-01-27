@@ -1,0 +1,28 @@
+{% extends "base.html"%}
+{%block content%}
+<h1>Взятые книги</h1>
+{%if bookinstance_list%}
+<ul>{{num_books}}
+  {%for bookinst in bookinstance_list%}
+  <li class="{%if bookinst.is_overdue%}text-success{%endif%}">
+    <a href="{%url 'book-detail' bookinst.book.pk%}">
+      {{bookinst.book.title}}
+    </a>
+    ({{bookinst.due_back}})
+    {{bookinst.weight}}
+
+    
+  </li>
+  {%endfor%}
+
+Суммарный вес взятых книг
+
+</ul>
+{%else%}
+<div class="alert alert-info">
+  Нет книг со статусом
+  <b class="text-uppercase">в заказе</b>
+</div>
+{%endif%}
+{{sum_weight}}
+{%endblock%}
